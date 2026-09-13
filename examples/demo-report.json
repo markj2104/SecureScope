@@ -1,0 +1,117 @@
+{
+  "target": "https://demo.securescope.invalid/",
+  "started": "2026-09-13T01:45:25+00:00",
+  "final_url": "https://demo.securescope.invalid/",
+  "status": 200,
+  "duration": 0.12,
+  "redirects": [],
+  "headers": [
+    [
+      "Content-Type",
+      "text/html"
+    ],
+    [
+      "X-Content-Type-Options",
+      "nosniff"
+    ],
+    [
+      "Server",
+      "ExampleServer"
+    ],
+    [
+      "Set-Cookie",
+      "[redacted]"
+    ]
+  ],
+  "tls": {
+    "version": "TLSv1.3",
+    "cipher": "TLS_AES_256_GCM_SHA384",
+    "days_remaining": 18,
+    "expires": "Simulated",
+    "issuer": "Demo certificate authority"
+  },
+  "findings": [
+    {
+      "severity": "Medium",
+      "title": "TLS certificate expires soon",
+      "evidence": "18 days remaining.",
+      "recommendation": "Renew the certificate before it expires and verify automatic renewal.",
+      "reference": "https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html"
+    },
+    {
+      "severity": "Medium",
+      "title": "HSTS is missing or disabled",
+      "evidence": "No positive Strict-Transport-Security max-age was observed.",
+      "recommendation": "After confirming HTTPS works across the intended scope, deploy HSTS with a positive max-age. Review subdomain coverage before enabling includeSubDomains.",
+      "reference": "https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html"
+    },
+    {
+      "severity": "Medium",
+      "title": "No enforced Content Security Policy",
+      "evidence": "No Content-Security-Policy response header. Meta policies are not evaluated.",
+      "recommendation": "Develop an application-specific CSP, test it in report-only mode, then enforce it. Prefer script nonces or hashes.",
+      "reference": "https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html"
+    },
+    {
+      "severity": "Medium",
+      "title": "Frame embedding restriction not observed",
+      "evidence": "No restrictive frame-ancestors or recognized X-Frame-Options value.",
+      "recommendation": "Use CSP frame-ancestors 'none' or an explicit set of trusted origins when framing is not intended to be public.",
+      "reference": "https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html"
+    },
+    {
+      "severity": "Medium",
+      "title": "HTML references HTTP resources",
+      "evidence": "Resource types: script. Browser blocking or automatic upgrades were not tested.",
+      "recommendation": "Change embedded resource URLs to HTTPS. Check CSS and runtime-generated resources separately.",
+      "reference": "https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html"
+    },
+    {
+      "severity": "Medium",
+      "title": "Cookie lacks Secure",
+      "evidence": "Cookie: session (value redacted)",
+      "recommendation": "Use Secure for cookies that should only travel over HTTPS.",
+      "reference": "https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html"
+    },
+    {
+      "severity": "Low",
+      "title": "Review cookie JavaScript access",
+      "evidence": "Cookie: session lacks HttpOnly (value redacted). Its purpose is unknown.",
+      "recommendation": "Set HttpOnly for session or sensitive cookies that JavaScript does not need to read.",
+      "reference": "https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html"
+    },
+    {
+      "severity": "Info",
+      "title": "Referrer policy uses browser defaults",
+      "evidence": "No Referrer-Policy header was observed.",
+      "recommendation": "Consider explicitly setting strict-origin-when-cross-origin or a stricter policy to document your intent.",
+      "reference": "https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html"
+    },
+    {
+      "severity": "Info",
+      "title": "Server technology is disclosed",
+      "evidence": "Server or X-Powered-By response header is present.",
+      "recommendation": "Consider suppressing unnecessary product/version details. Disclosure alone is not proof of a vulnerability.",
+      "reference": "https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html"
+    },
+    {
+      "severity": "Pass",
+      "title": "TLS certificate verified",
+      "evidence": "The certificate chain and hostname were accepted by the local trust store.",
+      "recommendation": "Keep automated certificate renewal enabled.",
+      "reference": "https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html"
+    },
+    {
+      "severity": "Pass",
+      "title": "MIME sniffing protection is enabled",
+      "evidence": "X-Content-Type-Options: nosniff",
+      "recommendation": "Retain this header.",
+      "reference": "https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html"
+    }
+  ],
+  "notes": [
+    "DEMO: simulated data. No network requests were made.",
+    "Single-page configuration review, not a penetration test or security certification. No login, crawling, JavaScript execution, port scan, or exploit attempts."
+  ],
+  "demo": true
+}
